@@ -4,6 +4,7 @@ const r = await build({ entryPoints: ['src/main.jsx'], bundle: true, minify: tru
 const js = r.outputFiles.find((f) => f.path.endsWith('.js')).text;
 const css = r.outputFiles.find((f) => f.path.endsWith('.css')).text;
 const head = `<title>czystyfiltr.pl</title>
+<meta name="robots" content="noindex, nofollow">
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="Czyszczenie filtrów DPF/FAP, katalizatorów i SCR w Lubaniu. Kurier w obie strony w cenie, badanie przeciwciśnienia przed i po, gwarancja 12 miesięcy.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
