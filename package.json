@@ -1,0 +1,9 @@
+{
+  "name": "czystyfiltr-prototyp",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Prototyp strony czystyfiltr.pl (React) – do przeniesienia na motyw WordPress",
+  "scripts": { "build": "node build.mjs" },
+  "dependencies": { "react": "18.3.1", "react-dom": "18.3.1" },
+  "devDependencies": { "esbuild": "0.24.0" }
+}
