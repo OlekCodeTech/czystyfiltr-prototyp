@@ -7,8 +7,8 @@ export const FIRMA = {
   kod: '59-800',
   miasto: 'Lubań',
   region: 'woj. dolnośląskie',
-  telefon: '509 533 252',
-  telefonHref: 'tel:+48509533252',
+  telefon: '575 579 837',
+  telefonHref: 'tel:+48575579837',
   email: null, // do uzupełnienia
   godziny: null, // do uzupełnienia
   gwarancjaMies: 12,
@@ -22,6 +22,7 @@ export const FIRMA = {
 
 export const MENU = [
   { label: 'Oferta', to: 'oferta', children: ['czyszczenie-dpf-fap', 'czyszczenie-katalizatorow', 'czyszczenie-scr', 'mycie-kolektorow-i-czesci'] },
+  { label: 'Warsztat', to: 'warsztat' },
   { label: 'Cennik', to: 'cennik' },
   { label: 'Jak to działa', to: 'jak-to-dziala' },
   { label: 'O nas', to: 'o-nas' },
@@ -337,4 +338,12 @@ export const ZRODLA = [
   { plik: 'hero-wydech.mp4', tytul: 'The exhaust pipes of a car under a lift', autor: 'Pexels', licencja: 'licencja Pexels', url: 'https://www.pexels.com/video/the-exhaust-pipes-of-a-car-under-a-lift-18019165/' },
   { plik: 'hero-myjka.mp4', tytul: 'Close-up of power sprayers', autor: 'Pexels', licencja: 'licencja Pexels', url: 'https://www.pexels.com/video/close-up-of-power-sprayers-9245565/' },
   { plik: 'dym.mp4', tytul: 'Close-up video of an exhaust pipe', autor: 'Pexels', licencja: 'licencja Pexels', url: 'https://www.pexels.com/video/close-up-video-of-a-exhaust-pipe-6160051/' },
+];
+
+/* Podstrona Warsztat — bieżąca obsługa pojazdów (ACF: repeater „uslugi_warsztatowe”) */
+export const WARSZTAT = [
+  { ikona: 'disc', tytul: 'Hamulce', opis: 'Wymiana klocków i tarcz, sprawdzenie zacisków i przewodów. Jeśli coś piszczy albo auto ściąga przy hamowaniu, zajrzymy.' },
+  { ikona: 'oil', tytul: 'Olej i filtry', opis: 'Wymiana oleju silnikowego z filtrem, do tego filtr powietrza, kabinowy i paliwa. Dobieramy olej do normy producenta, ważnej przy aucie z DPF.' },
+  { ikona: 'snow', tytul: 'Klimatyzacja', opis: 'Sprawdzenie szczelności, uzupełnienie czynnika, odgrzybianie i wymiana filtra kabinowego. Najlepiej przed latem.' },
+  { ikona: 'wrench', tytul: 'Bieżąca obsługa', opis: 'Przeglądy okresowe, płyny, żarówki, wycieraczki, akumulator i drobne naprawy, z którymi nie trzeba jechać do ASO.' },
 ];

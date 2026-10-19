@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { ZRODLA, FIRMA, OBJAWY, KROKI, USLUGI, CENNIK, W_CENIE, GWARANCJA, FAQ_GLOWNA, MIASTA, MIASTA_ROZBUDOWA, KATEGORIE, WPISY, POROWNANIE } from './data.js';
+import { ZRODLA, FIRMA, OBJAWY, KROKI, USLUGI, CENNIK, W_CENIE, GWARANCJA, FAQ_GLOWNA, MIASTA, MIASTA_ROZBUDOWA, KATEGORIE, WPISY, POROWNANIE, WARSZTAT } from './data.js';
 import {
   L, I, Ph, go, scrollToId, Receipt, PageHero, Objawy, UslugiGrid, Kroki, BeforeAfter, Faq, AreaMap, CityList,
   CtaBand, QuickForm, PostCard, WCenieList, Socials, Photo, GoogleMap,
@@ -63,6 +63,11 @@ export function Home() {
             <L to="oferta" className="link-arrow">Cała oferta<I n="arrow" /></L>
           </div>
           <UslugiGrid />
+          <L to="warsztat" className="workshop-strip">
+            <span className="workshop-icons"><I n="disc" /><I n="oil" /><I n="snow" /></span>
+            <span><b>Prowadzimy też warsztat.</b> Hamulce, wymiana oleju, klimatyzacja i bieżąca obsługa auta.</span>
+            <span className="link-arrow">Warsztat<I n="arrow" /></span>
+          </L>
         </div>
       </section>
 
@@ -202,6 +207,58 @@ export function Oferta() {
               <div className="info" key={t}><I n={ic} /><h3 style={{ fontSize: '1.3rem' }}>{t}</h3><p className="muted" style={{ fontSize: '.9375rem' }}>{d}</p></div>
             ))}
           </div>
+        </div>
+      </section>
+      <CtaBand />
+    </>
+  );
+}
+
+/* ═════════ Warsztat ═════════ */
+export function Warsztat() {
+  return (
+    <>
+      <PageHero img="media/hero-mechanik.jpg" crumbs={[{ label: 'Warsztat' }]} eyebrow="Warsztat w Lubaniu" title="Hamulce, olej, klimatyzacja. Bieżąca obsługa auta" lead="Oprócz czyszczenia filtrów prowadzimy zwykły warsztat. Robimy to, czego auto potrzebuje na co dzień, bez kolejki do ASO.">
+        <div className="btn-row">
+          <a href={FIRMA.telefonHref} className="btn btn--primary btn--lg"><I n="phone" />Umów wizytę: {FIRMA.telefon}</a>
+          <L to="kontakt" className="btn btn--ghost btn--lg"><I n="pin" />Jak dojechać</L>
+        </div>
+      </PageHero>
+      <section className="section">
+        <div className="wrap">
+          <div className="section-head"><h2>Czym się zajmujemy</h2><p className="lead">Osobówki i dostawczaki. Zadzwoń, powiedz, co się dzieje z autem, a podamy termin i orientacyjny koszt.</p></div>
+          <div className="grid grid-4">
+            {WARSZTAT.map((w) => (
+              <div className="info" key={w.tytul}><I n={w.ikona} /><h3 style={{ fontSize: '1.3rem' }}>{w.tytul}</h3><p className="muted" style={{ fontSize: '.9375rem' }}>{w.opis}</p></div>
+            ))}
+          </div>
+        </div>
+      </section>
+      <section className="section section--paper">
+        <div className="wrap cols">
+          <div className="stack" style={{ minWidth: 0 }}>
+            <h2>Przy okazji czyszczenia DPF</h2>
+            <p>Jeśli przywozisz auto do wyjęcia i czyszczenia filtra, możemy od razu zrobić wymianę oleju albo sprawdzić hamulce. Jedna wizyta zamiast dwóch.</p>
+            <ul className="checks">
+              <li><I n="check" />Olej o niskiej zawartości popiołu (Low SAPS) dobrany do auta z DPF</li>
+              <li><I n="check" />Sprawdzamy, co mogło zapchać filtr: wtryskiwacze, EGR, czujniki</li>
+              <li><I n="check" />Jeden termin, jedna faktura</li>
+            </ul>
+            <div className="btn-row"><L to="czyszczenie-dpf-fap" className="link-arrow">Czyszczenie DPF / FAP<I n="arrow" /></L></div>
+          </div>
+          <aside className="aside-card" aria-label="Umów wizytę">
+            <span className="eyebrow">Umów wizytę</span>
+            <p style={{ margin: 0 }}>{FIRMA.ulica}, {FIRMA.kod} {FIRMA.miasto}</p>
+            <p className="muted" style={{ margin: 0 }}>{FIRMA.godziny || <Ph>godziny otwarcia</Ph>}</p>
+            <div className="price-val" style={{ fontSize: '1.15rem' }}>Ceny usług: <Ph>do uzupełnienia</Ph></div>
+            <a href={FIRMA.telefonHref} className="btn btn--primary"><I n="phone" />{FIRMA.telefon}</a>
+            <L to="kontakt" className="link-arrow">Kontakt i mapa<I n="arrow" /></L>
+          </aside>
+        </div>
+      </section>
+      <section className="section section--tight">
+        <div className="wrap">
+          <div className="slot"><b>Zdjęcia warsztatu</b><span>Miejsce na zdjęcia stanowisk, podnośnika i ekipy. Do uzupełnienia.</span></div>
         </div>
       </section>
       <CtaBand />

@@ -51,6 +51,8 @@ const P = {
   dpf: <><ellipse cx="12" cy="12" rx="8.5" ry="8.5" /><path d="M7 7v10M10.3 4.2v15.6M13.7 4.2v15.6M17 7v10M4.2 10.3h15.6M4.2 13.7h15.6M7 7h10M7 17h10" /></>,
   cat: <><rect x="6" y="6" width="12" height="12" rx="3" /><path d="M2 12h4M18 12h4M9 9.5h6M9 12h6M9 14.5h6" /></>,
   scr: <><rect x="7" y="8" width="13" height="10" rx="3" /><path d="M2 13h5M10 11v4M13.5 11v4M17 11v4" /><path d="M5 3.5s-1.6 1.8-1.6 2.9a1.6 1.6 0 0 0 3.2 0C6.6 5.3 5 3.5 5 3.5z" /></>,
+  disc: <><circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="2.5" /><path d="M12 3v2M12 19v2M3 12h2M19 12h2" /><path d="M17.5 5.5a8 8 0 0 1 1 13" strokeWidth="3" /></>,
+  snow: <><path d="M12 2v20M4.9 7l14.2 10M4.9 17L19.1 7" /><path d="M9 4l3 2 3-2M9 20l3-2 3 2" /></>,
   manifold: <><path d="M3 6h3v5a3 3 0 0 0 3 3h11" /><path d="M9 6h3v4a2 2 0 0 0 2 2" /><path d="M15 6h3v3a1 1 0 0 0 1 1h1" /><path d="M20 12v4" /></>,
 };
 export function I({ n, s, ...rest }) {
@@ -279,7 +281,7 @@ export function Footer() {
           </div>
           <div>
             <h4>Usługi</h4>
-            <ul>{USLUGI.map((u) => <li key={u.slug}><L to={u.slug}>{u.nazwa}</L></li>)}<li><L to="cennik">Cennik i gwarancja</L></li><li><L to="jak-to-dziala">Jak to działa</L></li></ul>
+            <ul>{USLUGI.map((u) => <li key={u.slug}><L to={u.slug}>{u.nazwa}</L></li>)}<li><L to="warsztat">Warsztat: hamulce, olej, klimatyzacja</L></li><li><L to="cennik">Cennik i gwarancja</L></li><li><L to="jak-to-dziala">Jak to działa</L></li></ul>
           </div>
           <div>
             <h4>Obszar działania</h4>

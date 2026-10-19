@@ -660,3 +660,10 @@ button { font: inherit; cursor: pointer; }
 .gmap-ph svg { width: 36px; height: 36px; color: var(--clean-ink); }
 .gmap-ph b { color: var(--ink); font-size: 1.15rem; }
 .gmap-ph p { font-size: .9375rem; max-width: 36ch; }
+
+/* Pasek „Prowadzimy też warsztat” na stronie głównej */
+.workshop-strip { margin-top: 24px; display: flex; align-items: center; gap: 16px 20px; flex-wrap: wrap; padding: 18px 22px; border: 1px solid var(--line); border-radius: var(--r-md); background: var(--clean-soft); color: var(--ink); text-decoration: none; }
+.workshop-strip:hover { border-color: var(--clean); }
+.workshop-strip > span:nth-child(2) { flex: 1 1 260px; }
+.workshop-icons { display: flex; gap: 8px; color: var(--clean-ink); }
+.workshop-icons svg { width: 26px; height: 26px; }

@@ -6,7 +6,7 @@ import { Header, Footer, Cookie } from './components.jsx';
 import * as P from './pages.jsx';
 
 const STATIC = {
-  '': P.Home, oferta: P.Oferta, cennik: P.Cennik, 'jak-to-dziala': P.JakToDziala, 'zamow-odbior': P.ZamowOdbior,
+  '': P.Home, oferta: P.Oferta, warsztat: P.Warsztat, cennik: P.Cennik, 'jak-to-dziala': P.JakToDziala, 'zamow-odbior': P.ZamowOdbior,
   'o-nas': P.ONas, 'baza-wiedzy': P.BazaWiedzy, kontakt: P.Kontakt, 'polityka-prywatnosci': P.Polityka, regulamin: P.Regulamin, 'zrodla-zdjec': P.Zrodla,
 };
 function resolve(r) {
@@ -16,7 +16,7 @@ function resolve(r) {
   if (WPISY.some((w) => w.slug === r)) return <P.Wpis slug={r} />;
   return <P.NotFound />;
 }
-const TITLES = { '': 'Czyszczenie DPF Lubań', oferta: 'Oferta', cennik: 'Cennik czyszczenia DPF', 'jak-to-dziala': 'Jak wysłać filtr DPF', 'zamow-odbior': 'Zamów odbiór filtra', 'o-nas': 'O nas', 'baza-wiedzy': 'Baza wiedzy', kontakt: 'Kontakt', 'polityka-prywatnosci': 'Polityka prywatności', regulamin: 'Regulamin', 'zrodla-zdjec': 'Źródła zdjęć' };
+const TITLES = { '': 'Czyszczenie DPF Lubań', oferta: 'Oferta', warsztat: 'Warsztat samochodowy Lubań', cennik: 'Cennik czyszczenia DPF', 'jak-to-dziala': 'Jak wysłać filtr DPF', 'zamow-odbior': 'Zamów odbiór filtra', 'o-nas': 'O nas', 'baza-wiedzy': 'Baza wiedzy', kontakt: 'Kontakt', 'polityka-prywatnosci': 'Polityka prywatności', regulamin: 'Regulamin', 'zrodla-zdjec': 'Źródła zdjęć' };
 const titleFor = (r) => TITLES[r] ?? (USLUGI.find((u) => u.slug === r)?.nazwa || (MIASTA.find((m) => m.slug === r) ? 'Czyszczenie DPF ' + MIASTA.find((m) => m.slug === r).nazwa : WPISY.find((w) => w.slug === r)?.tytul) || 'Strona');
 const read = () => decodeURIComponent(location.hash.replace(/^#/, ''));
 
