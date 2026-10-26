@@ -10,10 +10,10 @@
   --line: #E1E7E4;
   --paper: #F3F6F4;
   --white: #FFFFFF;
-  --clean: #2E9E73;
-  --clean-ink: #1D6E52;
-  --clean-soft: #E6F2EB;
-  --clean-hi: #86D9B4;
+  --clean: #00A651;
+  --clean-ink: #007A3D;
+  --clean-soft: #E6F4EA;
+  --clean-hi: #9BD46B;
   --amber: #E7A325;
   --amber-soft: #FFF4DC;
   --ink: #1F2B30;
@@ -128,7 +128,7 @@ button { font: inherit; cursor: pointer; }
 .header-cta { flex: none; }
 .burger { display: none; margin-left: auto; width: 48px; height: 48px; border: 1px solid var(--line); background: var(--white); border-radius: var(--r-sm); align-items: center; justify-content: center; color: var(--soot); }
 .burger svg { width: 24px; height: 24px; }
-@media (max-width: 1080px) {
+@media (max-width: 1220px) {
   .nav, .header-cta { display: none; }
   .burger { display: inline-flex; }
   .logo-word { font-size: 1.4rem; }
@@ -639,7 +639,7 @@ button { font: inherit; cursor: pointer; }
 .cta-contact a.big { color: var(--ink); }
 .cta-contact svg { color: var(--clean-ink); }
 .cta-band .form-card { box-shadow: var(--shadow); }
-.section--dark .pill { background: rgba(134,217,180,.16); }
+.section--dark .pill { background: rgba(155,212,107,.16); }
 .chapter-tag { display: none; }
 .chapter { grid-template-columns: 1fr; }
 .chapter-text { grid-column: 1; }
@@ -667,3 +667,15 @@ button { font: inherit; cursor: pointer; }
 .workshop-strip > span:nth-child(2) { flex: 1 1 260px; }
 .workshop-icons { display: flex; gap: 8px; color: var(--clean-ink); }
 .workshop-icons svg { width: 26px; height: 26px; }
+
+/* Logo klienta (PNG z przezroczystością) */
+.logo { gap: 8px; }
+.logo img { display: block; height: auto; }
+.logo-znak { width: 60px; }
+.logo-napis { width: 150px; }
+.footer .logo-znak { width: 68px; }
+.footer .logo-napis { width: 170px; }
+@media (max-width: 760px) { .logo-znak { width: 48px; } .logo-napis { width: 124px; } }
+.nav-link { white-space: nowrap; padding: 10px 10px; }
+.header .wrap { gap: 20px; }
+.logo--light .logo-napis { filter: brightness(0) invert(1); }

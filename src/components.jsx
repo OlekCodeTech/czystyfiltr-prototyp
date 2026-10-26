@@ -66,18 +66,12 @@ export function I({ n, s, ...rest }) {
 /* Wartość do uzupełnienia przez klienta */
 export const Ph = ({ children }) => <span className="ph" title="Do uzupełnienia przez klienta">{children}</span>;
 
-/* ───────── Logo (tymczasowe) ───────── */
+/* ───────── Logo (od klienta: osobno znak i napis, ustawione obok siebie) ───────── */
 export function Logo({ light }) {
   return (
     <L to="" className={'logo' + (light ? ' logo--light' : '')} aria-label="czystyfiltr.pl, strona główna">
-      <svg className="logo-mark" viewBox="0 0 34 34" aria-hidden="true">
-        <circle cx="17" cy="17" r="15.5" fill="none" stroke="currentColor" strokeWidth="2.2" />
-        {[0, 1, 2, 3].map((r) => [0, 1, 2, 3].map((c) => {
-          const x = 8 + c * 4.6, y = 8 + r * 4.6; const clean = c + r > 3;
-          return <rect key={r + '' + c} x={x} y={y} width="3.6" height="3.6" rx=".6" fill={clean ? 'var(--clean)' : 'currentColor'} opacity={clean ? 1 : (r + c) % 2 ? .55 : .9} />;
-        }))}
-      </svg>
-      <span className="logo-word"><b>czysty</b>filtr<span>.pl</span></span>
+      <img className="logo-znak" src="media/logo-znak.png" alt="" width="626" height="439" />
+      <img className="logo-napis" src="media/logo-napis.png" alt="czystyfiltr.pl" width="845" height="135" />
     </L>
   );
 }
