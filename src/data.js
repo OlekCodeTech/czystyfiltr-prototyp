@@ -3,20 +3,27 @@
 
 export const FIRMA = {
   nazwa: 'czystyfiltr.pl',
-  ulica: 'ul. Za Torem 10b',
+  ulica: 'ul. Za Torem 10B',
   kod: '59-800',
   miasto: 'Lubań',
   region: 'woj. dolnośląskie',
   telefon: '575 579 837',
   telefonHref: 'tel:+48575579837',
   email: null, // do uzupełnienia
-  godziny: null, // do uzupełnienia
-  gwarancjaMies: 12,
-  czasRealizacji: '1–2 dni robocze',
+  godziny: 'pn–pt 8:00–16:00',
+  gwarancjaMies: 24,
+  gwarancja: '24 miesiące bez limitu km',
+  czasRealizacji: '24 h',
+  kurier: 50, // zł brutto w obie strony (osobowe, dostawcze, części)
+  spolka: 'Arbor Spółka z ograniczoną odpowiedzialnością',
+  spolkaKrotko: 'Arbor Sp. z o.o.',
+  nip: '613-157-67-26',
+  krs: '0000620706',
+  regon: '364577306',
+  konto: 'mBank 25 1140 2004 0000 3202 7653 5563',
+  rejestr: 'Arbor Spółka z ograniczoną odpowiedzialnością, siedziba: ul. Jarosława Dąbrowskiego 29, 59-800 Lubań, Sąd Rejonowy dla Wrocławia-Fabrycznej we Wrocławiu, IX Wydział Gospodarczy KRS, KRS 0000620706, NIP 613-157-67-26, REGON 364577306, kapitał zakładowy 30 000 zł. Warsztat: ul. Za Torem 10B, 59-800 Lubań.',
   social: [
     { id: 'facebook', label: 'Facebook' },
-    { id: 'instagram', label: 'Instagram' },
-    { id: 'youtube', label: 'YouTube' },
   ],
 };
 
@@ -49,6 +56,7 @@ export const KROKI = [
 export const USLUGI = [
   {
     slug: 'czyszczenie-dpf-fap',
+    cenaOd: 399,
     foto: 'media/dpf-czolo.jpg',
     krotko: 'DPF / FAP',
     nazwa: 'Czyszczenie filtrów DPF / FAP',
@@ -80,6 +88,7 @@ export const USLUGI = [
   },
   {
     slug: 'czyszczenie-katalizatorow',
+    cenaOd: 349,
     foto: 'media/katalizator.jpg',
     krotko: 'Katalizatory',
     nazwa: 'Czyszczenie katalizatorów',
@@ -109,6 +118,7 @@ export const USLUGI = [
   },
   {
     slug: 'czyszczenie-scr',
+    cenaOd: 399,
     foto: 'media/scr.jpg',
     krotko: 'SCR',
     nazwa: 'Czyszczenie układów SCR',
@@ -137,6 +147,7 @@ export const USLUGI = [
   },
   {
     slug: 'mycie-kolektorow-i-czesci',
+    cenaOd: 99,
     foto: 'media/wydech.jpg',
     krotko: 'Kolektory i części',
     nazwa: 'Kolektory i części — mycie ciśnieniowe',
@@ -167,24 +178,25 @@ export const USLUGI = [
 ];
 
 export const CENNIK = [
-  { segment: 'Samochody osobowe', opis: 'DPF / FAP, także z katalizatorem DOC', cena: null },
-  { segment: 'Samochody dostawcze i busy', opis: 'do 3,5 t', cena: null },
-  { segment: 'Ciężarowe i autobusy', opis: 'DPF, SCR, zestawy Euro 6', cena: null, uwaga: 'wycena indywidualna przy dużych zestawach' },
-  { segment: 'Maszyny rolnicze i budowlane', opis: 'ciągniki, koparki, ładowarki', cena: null },
-  { segment: 'Kolektory i części', opis: 'mycie ciśnieniowe', cena: null },
+  { segment: 'Samochody osobowe', opis: 'DPF / FAP, SCR, także z katalizatorem DOC', cena: 399, uwaga: `kurier w obie strony ${FIRMA.kurier} zł` },
+  { segment: 'Samochody dostawcze i busy', opis: 'do 3,5 t', cena: 449, uwaga: `kurier w obie strony ${FIRMA.kurier} zł` },
+  { segment: 'Ciężarowe i autobusy', opis: 'DPF lub SCR', cena: 899, uwaga: 'zestawy DPF+SCR Euro 6 od 1 690 zł; transport wyceniany przed wysyłką' },
+  { segment: 'Maszyny rolnicze i budowlane', opis: 'ciągniki, koparki, ładowarki', cena: 599, uwaga: 'transport wyceniany przed wysyłką' },
+  { segment: 'Katalizatory', opis: 'osobny katalizator DOC lub benzynowy', cena: 349, uwaga: `kurier w obie strony ${FIRMA.kurier} zł` },
+  { segment: 'Kolektory i części', opis: 'mycie ciśnieniowe', cena: 99, uwaga: `kurier w obie strony ${FIRMA.kurier} zł` },
 ];
 
 export const W_CENIE = [
-  'Kurier w obie strony',
-  'Badanie przeciwciśnienia przed i po',
-  'Wydruk raportu i zdjęcie wysłane przed zwrotem',
+  'Badanie przeciwciśnienia przed i po, z wydrukiem',
+  'Oględziny wkładu przed czyszczeniem',
+  'Zdjęcie raportu SMS-em, zanim filtr wróci',
   'Faktura VAT',
-  `Gwarancja ${FIRMA.gwarancjaMies} miesięcy`,
+  `Gwarancja ${FIRMA.gwarancja}`,
 ];
 
 export const GWARANCJA = {
   punkty: [
-    { t: `${FIRMA.gwarancjaMies} miesięcy od czyszczenia`, d: 'Liczymy od dnia, w którym filtr do Ciebie wraca.' },
+    { t: '24 miesiące bez limitu kilometrów', d: 'Liczymy od dnia, w którym filtr do Ciebie wraca. Przebieg nie ma znaczenia.' },
     { t: 'Filtr znowu się zapchał?', d: 'Jeśli w tym czasie filtr straci drożność, wyczyścimy go za darmo.' },
     { t: 'Kiedy gwarancja nie obejmuje filtra', d: 'Gdy zapcha go usterka auta: wtryski, turbo, zawór EGR albo duże zużycie oleju. Dlatego przed czyszczeniem pytamy o objawy.' },
   ],
@@ -202,7 +214,7 @@ export const FAQ_GLOWNA = [
   { q: 'Ile trwa czyszczenie filtra DPF?', a: `Sam proces w warsztacie zajmuje ${FIRMA.czasRealizacji}. Przy wysyłce kurierem doliczamy czas transportu w obie strony, zwykle po jednym dniu.` },
   { q: 'Czy czyszczenie jest tak samo skuteczne jak nowy filtr?', a: 'Jeśli wkład ceramiczny jest cały, przeciwciśnienie po czyszczeniu wraca do wartości zbliżonych do nowego filtra. Potwierdza to wydruk z badania po czyszczeniu.' },
   { q: 'Jak zapakować filtr do wysyłki?', a: 'Zatkaj wlot i wylot folią, owiń filtr folią bąbelkową i włóż do kartonu wypełnionego tak, żeby się nie przesuwał. Instrukcję ze zdjęciami znajdziesz na stronie Jak to działa.' },
-  { q: 'Co jeśli filtra nie da się wyczyścić?', a: 'Badamy filtr przed czyszczeniem. Jeśli wkład jest pęknięty lub stopiony, dzwonimy z informacją, zanim cokolwiek zrobimy.' },
+  { q: 'Co jeśli filtra nie da się wyczyścić?', a: 'Badamy filtr przed czyszczeniem. Jeśli wkład jest pęknięty lub stopiony, dzwonimy z informacją, zanim cokolwiek zrobimy. Nie płacisz wtedy nic, a filtr odsyłamy na nasz koszt.' },
   { q: 'Czy wystawiacie fakturę VAT?', a: 'Tak, faktura jest w cenie usługi. Dane do faktury podajesz przy zamówieniu odbioru.' },
   { q: 'Czy usuwacie lub wycinacie filtry DPF?', a: 'Nie. Usunięcie DPF jest niezgodne z przepisami i kończy się problemami na przeglądzie. Zajmujemy się wyłącznie czyszczeniem.' },
 ];
@@ -214,7 +226,7 @@ export const MIASTA = [
     lokalnie: 'Zgorzelec to miasto przy przejściu granicznym z Görlitz i autostradzie A4. Dużo tu busów, aut dostawczych i ciężarówek, które jeżdżą głównie trasą, a w mieście stoją w korkach przy moście. To mieszanka, która szybko zapycha DPF: długie odcinki na autostradzie przerywane jazdą stop-start przy odprawie i dostawach.',
     dla: 'Firmom transportowym i kurierskim ze Zgorzelca proponujemy stały odbiór filtrów i rozliczenie zbiorcze.',
     faq: [
-      { q: 'Czy odbieracie filtry ze Zgorzelca?', a: 'Tak, kurierem w cenie usługi. Możesz też podjechać do nas do Lubania, to około 25 minut.' },
+      { q: 'Czy odbieracie filtry ze Zgorzelca?', a: `Tak, kurierem, ${FIRMA.kurier} zł w obie strony. Możesz też podjechać do nas do Lubania, to około 25 minut.` },
       { q: 'Czy obsługujecie klientów z Görlitz?', a: 'Tak, przyjmujemy filtry od klientów z Niemiec. Kontakt na razie po polsku, fakturę wystawiamy także na firmę z UE.' },
     ],
   },
@@ -224,7 +236,7 @@ export const MIASTA = [
     lokalnie: 'Bolesławiec leży przy węźle A4 i A18, więc przez miasto przejeżdża dużo transportu ciężarowego i flot firmowych. W okolicy pracują też zakłady i gospodarstwa z maszynami Euro 5 i Euro 6, gdzie zapchany DPF oznacza przestój w środku sezonu.',
     dla: 'Dla firm z Bolesławca i Nowogrodźca ustalamy stały dzień odbioru, a dla maszyn wycenę z góry przed wysyłką.',
     faq: [
-      { q: 'Ile jedzie się z Bolesławca do Lubania?', a: 'Około 40 minut, przez Nowogrodziec. Filtr można też wysłać kurierem w cenie usługi.' },
+      { q: 'Ile jedzie się z Bolesławca do Lubania?', a: `Około 40 minut, przez Nowogrodziec. Filtr można też wysłać kurierem, ${FIRMA.kurier} zł w obie strony.` },
       { q: 'Czy czyścicie filtry z ciężarówek z Bolesławca?', a: 'Tak, także zestawy DPF+SCR Euro 6. Przy dużych zestawach zadzwoń przed wysyłką, ustalimy odbiór.' },
     ],
   },
@@ -245,7 +257,7 @@ export const MIASTA = [
     dla: 'Warsztatom z Jeleniej Góry, które nie mają własnej maszyny do czyszczenia DPF, proponujemy stałą współpracę i odbiór filtrów kurierem.',
     faq: [
       { q: 'Jak wysłać filtr z Jeleniej Góry?', a: 'Zamów odbiór przez formularz. Kurier odbierze filtr z domu lub z warsztatu, a po czyszczeniu odwiezie go pod ten sam adres.' },
-      { q: 'Ile trwa całość przy wysyłce kurierem?', a: `Czyszczenie trwa ${FIRMA.czasRealizacji}, do tego transport w obie strony. Zwykle filtr wraca w ciągu kilku dni roboczych.` },
+      { q: 'Ile trwa całość przy wysyłce kurierem?', a: `Czyszczenie trwa ${FIRMA.czasRealizacji}, do tego transport w obie strony. Zwykle filtr wraca w ciągu 2–3 dni roboczych.` },
     ],
   },
 ];
@@ -346,4 +358,59 @@ export const WARSZTAT = [
   { ikona: 'oil', tytul: 'Olej i filtry', opis: 'Wymiana oleju silnikowego z filtrem, do tego filtr powietrza, kabinowy i paliwa. Dobieramy olej do normy producenta, ważnej przy aucie z DPF.' },
   { ikona: 'snow', tytul: 'Klimatyzacja', opis: 'Sprawdzenie szczelności, uzupełnienie czynnika, odgrzybianie i wymiana filtra kabinowego. Najlepiej przed latem.' },
   { ikona: 'wrench', tytul: 'Bieżąca obsługa', opis: 'Przeglądy okresowe, płyny, żarówki, wycieraczki, akumulator i drobne naprawy, z którymi nie trzeba jechać do ASO.' },
+];
+
+/* Pełny cennik (ACF: tabele cennika). Ceny brutto, przedrostek „od”. */
+export const CENA_UWAGA = 'Ceny orientacyjne. Ostateczną cenę podajemy przed wykonaniem usługi, po zbadaniu filtra lub obejrzeniu części. Bez Twojej zgody nie wykonamy usługi droższej niż podana.';
+export const CENNIK_TABELE = [
+  { tytul: 'Czyszczenie filtrów i katalizatorów', wiersze: [
+    ['Samochody osobowe: DPF / FAP, SCR, zestaw DPF z katalizatorem DOC', 'od 399 zł'],
+    ['Samochody dostawcze i busy do 3,5 t', 'od 449 zł'],
+    ['Osobny katalizator DOC lub benzynowy', 'od 349 zł'],
+    ['Ciężarowe i autobusy: pojedynczy DPF lub SCR', 'od 899 zł'],
+    ['Ciężarowe: zestaw DPF+SCR w jednej obudowie (Euro 6)', 'od 1 690 zł'],
+    ['Maszyny rolnicze i budowlane', 'od 599 zł'],
+  ] },
+  { tytul: 'Mycie ciśnieniowe części', wiersze: [
+    ['Zawór EGR, przepustnica', 'od 99 zł'],
+    ['Kolektor ssący lub wydechowy, intercooler', 'od 149 zł'],
+    ['Chłodnica EGR', 'od 199 zł'],
+  ] },
+  { tytul: 'Transport', wiersze: [
+    ['Kurier w obie strony: filtry z aut osobowych i dostawczych, katalizatory, części', `${FIRMA.kurier} zł`],
+    ['Ciężarowe, autobusy, maszyny', 'wycena przed wysyłką'],
+    ['Przywiezienie filtra do warsztatu w Lubaniu', 'bez opłat'],
+  ], dopisek: 'Jeśli filtr i części są w jednej paczce, za kuriera płacisz raz.' },
+  { tytul: 'Usługi dodatkowe w warsztacie w Lubaniu', wiersze: [
+    ['Pakiet: demontaż + czyszczenie + montaż + reset adaptacji filtra (auta osobowe)', 'od 649 zł'],
+    ['Demontaż i montaż filtra', 'od 249 zł'],
+    ['Reset adaptacji filtra w sterowniku', 'od 99 zł (w pakiecie gratis)'],
+    ['Uszczelki, opaski, śruby', 'według zużycia'],
+  ] },
+];
+export const WARSZTAT_CENNIK = [
+  { tytul: 'Olej i filtry', wiersze: [
+    ['Wymiana oleju silnikowego z filtrem oleju', 'od 79 zł'],
+    ['Wymiana filtra powietrza', 'od 30 zł'],
+    ['Wymiana filtra kabinowego', 'od 40 zł'],
+    ['Wymiana filtra paliwa', 'od 99 zł'],
+  ] },
+  { tytul: 'Hamulce', wiersze: [
+    ['Wymiana klocków hamulcowych, jedna oś', 'od 129 zł'],
+    ['Wymiana tarcz i klocków, przód', 'od 229 zł'],
+    ['Wymiana tarcz i klocków, tył', 'od 249 zł (z elektrycznym hamulcem postojowym od 299 zł)'],
+    ['Wymiana płynu hamulcowego, z płynem', 'od 179 zł'],
+  ] },
+  { tytul: 'Klimatyzacja', wiersze: [
+    ['Serwis klimatyzacji R134a (odzysk, próżnia, test szczelności, napełnienie)', 'od 199 zł'],
+    ['Serwis klimatyzacji R1234yf (auta zwykle od 2017 r.)', 'od 399 zł'],
+    ['Odgrzybianie ozonem', 'od 69 zł'],
+  ] },
+  { tytul: 'Bieżąca obsługa', wiersze: [
+    ['Diagnostyka komputerowa z odczytem błędów', 'od 99 zł'],
+    ['Sprawdzenie stanu technicznego auta', 'od 90 zł'],
+    ['Wymiana akumulatora z testem ładowania', 'od 49 zł'],
+    ['Wymiana żarówki', 'od 25 zł'],
+    ['Roboczogodzina (pozostałe naprawy)', 'od 110 zł'],
+  ] },
 ];

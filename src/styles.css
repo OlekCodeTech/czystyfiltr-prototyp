@@ -10,10 +10,10 @@
   --line: #E1E7E4;
   --paper: #F3F6F4;
   --white: #FFFFFF;
-  --clean: #00A651;
-  --clean-ink: #007A3D;
-  --clean-soft: #E6F4EA;
-  --clean-hi: #9BD46B;
+  --clean: #1FAA17;
+  --clean-ink: #127A0C;
+  --clean-soft: #E9F6E7;
+  --clean-hi: #6FD067;
   --amber: #E7A325;
   --amber-soft: #FFF4DC;
   --ink: #1F2B30;
@@ -639,7 +639,7 @@ button { font: inherit; cursor: pointer; }
 .cta-contact a.big { color: var(--ink); }
 .cta-contact svg { color: var(--clean-ink); }
 .cta-band .form-card { box-shadow: var(--shadow); }
-.section--dark .pill { background: rgba(155,212,107,.16); }
+.section--dark .pill { background: rgba(111,208,103,.16); }
 .chapter-tag { display: none; }
 .chapter { grid-template-columns: 1fr; }
 .chapter-text { grid-column: 1; }
@@ -679,3 +679,21 @@ button { font: inherit; cursor: pointer; }
 .nav-link { white-space: nowrap; padding: 10px 10px; }
 .header .wrap { gap: 20px; }
 .logo--light .logo-napis { filter: brightness(0) invert(1); }
+
+/* Logo v2 (poziome, SVG) */
+.logo-img { display: block; width: 184px; height: auto; }
+.footer .logo-img { width: 200px; }
+@media (max-width: 760px) { .logo-img { width: 140px; } }
+.footer-legal { font-size: .8125rem; color: var(--on-dark-2); margin: 24px 0 0; max-width: 900px; }
+/* Tabele cennika */
+.ptable h3 { font-size: 1.3rem; margin: 0 0 10px; }
+.ptable table { width: 100%; border-collapse: collapse; font-size: .9688rem; }
+.ptable th { text-align: left; font-family: var(--f-label); font-size: .75rem; font-weight: 600; color: var(--steel); padding: 8px 0; border-bottom: 1px solid var(--line); }
+.ptable th:last-child, .ptable td:last-child { text-align: right; padding-left: 16px; }
+.ptable td { padding: 10px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+.ptable td:last-child { font-weight: 600; }
+.ptable th:last-child { white-space: nowrap; }
+.ptable-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 40px; }
+@media (max-width: 860px) { .ptable-grid { grid-template-columns: 1fr; } }
+.price-disclaimer { font-size: .8125rem; color: var(--steel); margin: 10px 0 0; }
+.price-sub { font-size: .875rem; color: var(--steel); margin: -6px 0 0; }

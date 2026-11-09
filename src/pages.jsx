@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { ZRODLA, FIRMA, OBJAWY, KROKI, USLUGI, CENNIK, W_CENIE, GWARANCJA, FAQ_GLOWNA, MIASTA, MIASTA_ROZBUDOWA, KATEGORIE, WPISY, POROWNANIE, WARSZTAT } from './data.js';
+import { ZRODLA, FIRMA, OBJAWY, KROKI, USLUGI, CENNIK, W_CENIE, GWARANCJA, FAQ_GLOWNA, MIASTA, MIASTA_ROZBUDOWA, KATEGORIE, WPISY, POROWNANIE, WARSZTAT, CENA_UWAGA, CENNIK_TABELE, WARSZTAT_CENNIK } from './data.js';
 import {
   L, I, Ph, go, scrollToId, Receipt, PageHero, Objawy, UslugiGrid, Kroki, BeforeAfter, Faq, AreaMap, CityList,
   CtaBand, QuickForm, PostCard, WCenieList, Socials, Photo, GoogleMap,
@@ -14,17 +14,17 @@ export function Home() {
       <HeroVideo>
         <div className="wrap hero-inner">
           <div className="hero-copy">
-            <span className="eyebrow">Warsztat w Lubaniu, ul. Za Torem 10b</span>
+            <span className="eyebrow">Warsztat w Lubaniu, {FIRMA.ulica}</span>
             <h1>Czyszczenie filtrów DPF i&nbsp;FAP w&nbsp;Lubaniu</h1>
-            <p className="lead">Przywieź filtr do nas albo wyślij go kurierem z dowolnego miejsca w Polsce. Odbiór i zwrot są w cenie. Po czyszczeniu dostajesz wydruk z maszyny, więc dokładnie widzisz efekt.</p>
+            <p className="lead">Przywieź filtr do nas albo wyślij go kurierem z dowolnego miejsca w Polsce. Odbiór i zwrot kurierem kosztują {FIRMA.kurier} zł. Po czyszczeniu dostajesz wydruk z maszyny, więc dokładnie widzisz efekt.</p>
             <div className="btn-row">
               <L to="zamow-odbior" className="btn btn--primary btn--lg"><I n="truck" />Zamów odbiór filtra</L>
               <a href={FIRMA.telefonHref} className="btn btn--light btn--lg"><I n="phone" />{FIRMA.telefon}</a>
             </div>
             <ul className="hero-ticks">
-              <li><I n="check" />Kurier w cenie</li>
-              <li><I n="check" />Gwarancja {FIRMA.gwarancjaMies} mies.</li>
-              <li><I n="check" />Gotowe w 1–2 dni</li>
+              <li><I n="check" />Czyszczenie od 399 zł</li>
+              <li><I n="check" />Gwarancja 24 mies. bez limitu km</li>
+              <li><I n="check" />Gotowe w 24 h</li>
               <li className="no"><I n="ban" />Nie wycinamy DPF</li>
             </ul>
           </div>
@@ -104,7 +104,7 @@ export function Home() {
         <div className="wrap">
           <div className="section-head">
                         <h2>Ile to kosztuje</h2>
-            <p className="lead">Podajemy ceny brutto. Kurier w obie strony jest już w cenie, nic nie dopłacasz.</p>
+            <p className="lead">Podajemy ceny brutto. Kurier w obie strony kosztuje {FIRMA.kurier} zł, a ostateczną cenę potwierdzamy przed usługą.</p>
           </div>
           <div className="price-wrap">
             <PriceList rows={CENNIK.slice(0, 4)} link />
@@ -120,7 +120,7 @@ export function Home() {
           <div className="stack-lg">
             <div className="stack">
                             <h2>Skąd przyjmujemy filtry</h2>
-              <p className="lead">Z Lubania i okolic najprościej przywieźć filtr osobiście. Z dalszych miast odbierze go kurier, w cenie usługi.</p>
+              <p className="lead">Z Lubania i okolic najprościej przywieźć filtr osobiście. Z dalszych miast odbierze go kurier, {FIRMA.kurier} zł w obie strony.</p>
             </div>
             <CityList />
           </div>
@@ -159,13 +159,14 @@ function PriceList({ rows, link }) {
       {rows.map((c) => (
         <div className="price-row" key={c.segment}>
           <div><h3>{c.segment}</h3><p>{c.opis}</p></div>
-          <div className="price-val">{c.cena ? <>od {c.cena} zł<small>brutto</small></> : <>od <Ph>cena</Ph><small>brutto</small></>}</div>
+          <div className="price-val">od {c.cena.toLocaleString('pl-PL')} zł<small>brutto</small></div>
           {c.uwaga && <span className="price-note">{c.uwaga}</span>}
         </div>
       ))}
       <div className="price-inc">
         <h4>W cenie</h4>
         <WCenieList items={W_CENIE} />
+        <p className="price-disclaimer">{CENA_UWAGA}</p>
         {link && <div style={{ marginTop: 14 }}><L to="cennik" className="link-arrow">Pełny cennik<I n="arrow" /></L></div>}
       </div>
     </div>
@@ -175,7 +176,7 @@ function PriceList({ rows, link }) {
 function Warranty({ full }) {
   return (
     <div className="warranty">
-      <div className="warranty-big"><strong>{FIRMA.gwarancjaMies}</strong><span>miesięcy<br />gwarancji</span></div>
+      <div className="warranty-big"><strong>{FIRMA.gwarancjaMies}</strong><span>miesiące<br />gwarancji</span></div>
       <ol>
         {GWARANCJA.punkty.map((p, i) => (
           <li key={i}><span>0{i + 1}</span><div><b>{p.t}</b><p>{p.d}</p></div></li>
@@ -250,7 +251,8 @@ export function Warsztat() {
             <span className="eyebrow">Umów wizytę</span>
             <p style={{ margin: 0 }}>{FIRMA.ulica}, {FIRMA.kod} {FIRMA.miasto}</p>
             <p className="muted" style={{ margin: 0 }}>{FIRMA.godziny || <Ph>godziny otwarcia</Ph>}</p>
-            <div className="price-val" style={{ fontSize: '1.15rem' }}>Ceny usług: <Ph>do uzupełnienia</Ph></div>
+            <p style={{ margin: 0 }}>Wymiana oleju od 79 zł, hamulce od 129 zł, klimatyzacja od 199 zł.</p>
+            <a href="#warsztat-cennik" className="link-arrow" onClick={(e) => { e.preventDefault(); scrollToId('warsztat-cennik'); }}>Cennik warsztatu<I n="arrow" /></a>
             <a href={FIRMA.telefonHref} className="btn btn--primary"><I n="phone" />{FIRMA.telefon}</a>
             <L to="kontakt" className="link-arrow">Kontakt i mapa<I n="arrow" /></L>
           </aside>
@@ -259,6 +261,12 @@ export function Warsztat() {
       <section className="section section--tight">
         <div className="wrap">
           <div className="slot"><b>Zdjęcia warsztatu</b><span>Miejsce na zdjęcia stanowisk, podnośnika i ekipy. Do uzupełnienia.</span></div>
+        </div>
+      </section>
+      <section className="section section--paper" id="warsztat-cennik">
+        <div className="wrap stack-lg">
+          <div className="section-head"><h2>Cennik warsztatu</h2><p className="lead">Ceny robocizny brutto, bez części.</p></div>
+          <div className="ptable-grid">{WARSZTAT_CENNIK.map((t) => <PriceTable key={t.tytul} t={t} />)}</div>
         </div>
       </section>
       <CtaBand />
@@ -318,8 +326,8 @@ export function Usluga({ slug }) {
               <h2>Co dostajesz</h2>
               <div className="grid grid-3">
                 {(kolektory
-                  ? [['receipt', 'Zdjęcia przed i po', 'Wysyłamy je, zanim część wróci.'], ['truck', 'Kurier w obie strony', 'Odbiór z domu lub warsztatu.'], ['receipt', 'Faktura VAT', 'Na osobę prywatną lub firmę.']]
-                  : [['receipt', 'Wydruk z badania', 'Przeciwciśnienie przed i po czyszczeniu.'], ['truck', 'Kurier w obie strony', 'Odbiór z domu lub warsztatu.'], ['shield', `Gwarancja ${FIRMA.gwarancjaMies} mies.`, 'Warunki napisane wprost.']]
+                  ? [['receipt', 'Zdjęcia przed i po', 'Wysyłamy je, zanim część wróci.'], ['truck', 'Odbiór kurierem', `Z domu lub warsztatu, ${FIRMA.kurier} zł w obie strony.`], ['receipt', 'Faktura VAT', 'Na osobę prywatną lub firmę.']]
+                  : [['receipt', 'Wydruk z badania', 'Przeciwciśnienie przed i po czyszczeniu.'], ['truck', 'Odbiór kurierem', `Z domu lub warsztatu, ${FIRMA.kurier} zł w obie strony.`], ['shield', 'Gwarancja 24 miesiące', 'Bez limitu km, warunki napisane wprost.']]
                 ).map(([ic, t, d]) => <div className="info" key={t}><I n={ic} /><b style={{ fontFamily: 'var(--f-display)', fontSize: '1.25rem' }}>{t}</b><p className="muted" style={{ fontSize: '.9375rem' }}>{d}</p></div>)}
               </div>
             </div>
@@ -338,8 +346,9 @@ export function Usluga({ slug }) {
           </div>
           <aside className="aside-card" aria-label="Cena i zamówienie">
             <span className="eyebrow">Cena</span>
-            <div className="price-val">od <Ph>cena</Ph> <small>brutto</small></div>
-            <WCenieList items={kolektory ? ['Kurier w obie strony', 'Zdjęcia przed i po', 'Faktura VAT'] : W_CENIE} />
+            <div className="price-val">od {u.cenaOd} zł <small>brutto</small></div>
+            <p className="price-sub">+ kurier w obie strony {FIRMA.kurier} zł. Cenę potwierdzamy przed usługą.</p>
+            <WCenieList items={kolektory ? ['Zdjęcia przed i po', 'Faktura VAT'] : W_CENIE} />
             <L to="zamow-odbior" className="btn btn--primary"><I n="truck" />Zamów odbiór</L>
             <a href={FIRMA.telefonHref} className="btn btn--ghost"><I n="phone" />{FIRMA.telefon}</a>
             <L to="cennik" className="link-arrow">Pełny cennik<I n="arrow" /></L>
@@ -365,18 +374,19 @@ export function Usluga({ slug }) {
 export function Cennik() {
   return (
     <>
-      <PageHero img="media/przekroj.jpg" crumbs={[{ label: 'Cennik' }]} eyebrow="Cennik i gwarancja" title="Cennik czyszczenia DPF" lead="Ceny brutto z kurierem w obie strony, badaniem przed i po oraz fakturą. Bez dopłat za transport." />
+      <PageHero img="media/przekroj.jpg" crumbs={[{ label: 'Cennik' }]} eyebrow="Cennik i gwarancja" title="Cennik czyszczenia DPF" lead={`Ceny brutto z badaniem przed i po oraz fakturą. Kurier w obie strony kosztuje ${FIRMA.kurier} zł, a filtr przywieziony do Lubania przyjmujemy bez opłat.`} />
       <section className="section">
         <div className="wrap price-wrap">
           <div className="stack-lg" style={{ minWidth: 0 }}>
-            <PriceList rows={CENNIK} />
+            {CENNIK_TABELE.map((t) => <PriceTable key={t.tytul} t={t} />)}
             <div className="symptom-foot" style={{ marginTop: 0, background: 'var(--paper)' }}>
-              <p>Nie płacisz za czyszczenie, jeśli filtra nie da się wyczyścić. <Ph>do potwierdzenia</Ph></p>
+              <p>Nie płacisz nic, jeśli filtra nie da się wyczyścić. Odsyłamy go na nasz koszt razem ze zdjęciami uszkodzenia.</p>
             </div>
             <div className="stack">
-              <h2>Dopłaty</h2>
-              <p className="lead">Demontaż i montaż filtra w warsztacie w Lubaniu: <Ph>tak / nie, cena</Ph>. Przy dużych zestawach DPF+SCR z ciężarówek cenę ustalamy przed wysyłką.</p>
+              <h2>Warsztaty i floty</h2>
+              <p className="lead">Czyszczenie filtra z auta osobowego od 300 zł netto przy stałej współpracy, z rozliczeniem miesięcznym. Cenę ustalamy indywidualnie.</p>
             </div>
+            <div className="price-inc"><h4>W cenie każdego czyszczenia filtra</h4><WCenieList items={W_CENIE} /></div>
           </div>
           <Warranty full />
         </div>
@@ -387,7 +397,7 @@ export function Cennik() {
             <div className="stack">
               <span className="eyebrow">Gwarancja</span>
               <h2>Warunki gwarancji</h2>
-              <p className="lead">Gwarancja trwa {FIRMA.gwarancjaMies} miesięcy od dnia zwrotu filtra. Jeśli w tym czasie filtr ponownie straci drożność, czyścimy go bez opłaty.</p>
+              <p className="lead">Gwarancja trwa 24 miesiące od dnia zwrotu filtra, bez limitu kilometrów. Jeśli w tym czasie filtr ponownie straci drożność, czyścimy go bez opłaty.</p>
             </div>
             <div className="stack">
               <h3>Gwarancja nie obejmuje zapchania wywołanego przez:</h3>
@@ -414,15 +424,29 @@ export function Cennik() {
         <div className="wrap faq-layout">
           <div className="stack"><h2>Pytania o cenę</h2></div>
           <Faq items={[
-            { q: 'Czy kurier naprawdę jest w cenie?', a: 'Tak. Kurier odbiera filtr i odwozi go pod wskazany adres. Nie doliczamy kosztów transportu.' },
-            { q: 'Czy cena zależy od modelu auta?', a: 'Zależy od segmentu i wielkości filtra. Dla aut osobowych i dostawczych cena jest stała, przy ciężarówkach i maszynach podajemy ją przed wysyłką.' },
-            { q: 'Kiedy płacę?', a: 'Po wykonaniu usługi. Formę płatności potwierdzamy przy zamówieniu odbioru.' },
+            { q: 'Ile kosztuje kurier?', a: `${FIRMA.kurier} zł brutto za odbiór i zwrot jednej paczki. Przy ciężarówkach i maszynach transport wyceniamy przed wysyłką. Jeśli przywieziesz filtr do Lubania, nie płacisz za transport.` },
+            { q: 'Czy cena zależy od modelu auta?', a: 'Tak, zależy od wielkości filtra i stopnia zabrudzenia. Na stronie podajemy ceny „od”, a ostateczną cenę potwierdzamy po zbadaniu filtra, zanim zaczniemy czyścić.' },
+            { q: 'Kiedy płacę?', a: 'Po wykonaniu usługi. Możesz zapłacić przelewem, gdy dostaniesz zdjęcie raportu, przy odbiorze paczki u kuriera albo na miejscu w Lubaniu gotówką, kartą lub BLIK-iem.' },
             FAQ_GLOWNA[3],
           ]} />
         </div>
       </section>
       <CtaBand />
     </>
+  );
+}
+
+function PriceTable({ t }) {
+  return (
+    <div className="ptable">
+      <h3>{t.tytul}</h3>
+      <table>
+        <thead><tr><th>Usługa</th><th>Cena brutto</th></tr></thead>
+        <tbody>{t.wiersze.map(([u, c]) => <tr key={u}><td>{u}</td><td>{c.replace(/(od|\d) (?=\d|zł)/g, '$1\u00a0')}</td></tr>)}</tbody>
+      </table>
+      {t.dopisek && <p className="muted" style={{ fontSize: '.9375rem', margin: '8px 0 0' }}>{t.dopisek}</p>}
+      <p className="price-disclaimer">{CENA_UWAGA}</p>
+    </div>
   );
 }
 
@@ -604,6 +628,7 @@ export function ZamowOdbior() {
               <li><I n="check" />{d.usluga}</li>
               <li><I n="check" />{d.pojazd || 'Typ pojazdu: wybierz'}</li>
               <li><I n="check" />Odbiór: {d.miejsce}</li>
+              <li><I n="truck" />{d.miejsce === 'Przywiozę sam do Lubania' ? 'Transport: bez opłat' : /Ciężarowy|Maszyna/.test(d.pojazd) ? 'Transport wycenimy przed odbiorem' : `Kurier w obie strony: ${FIRMA.kurier} zł`}</li>
             </ul>
             <div style={{ borderTop: '1px solid var(--line)', paddingTop: 14 }}>
               <WCenieList items={W_CENIE.slice(0, 3)} />
@@ -626,9 +651,9 @@ export function ONas() {
           <div className="prose">
             <h2>Kim jesteśmy</h2>
             <p>Za czystyfiltr.pl stoi ekipa z wieloletnim doświadczeniem w myciu ciśnieniowym. Wcześniej zajmowaliśmy się myciem i renowacją elewacji, dachów i kostki, więc wiemy, jak dobrać ciśnienie i środek do materiału, żeby czyścić skutecznie i niczego nie uszkodzić.</p>
-            <p>Teraz tę wiedzę wykorzystujemy w czyszczeniu filtrów DPF, katalizatorów i części silnika. Warsztat mieści się w Lubaniu, przy {FIRMA.ulica}. <Ph>historia i rok startu do uzupełnienia</Ph></p>
+            <p>Teraz tę wiedzę wykorzystujemy w czyszczeniu filtrów DPF, katalizatorów i części silnika. Warsztat mieści się w Lubaniu, przy {FIRMA.ulica}. Arbor działa od 2016 roku. Czyszczenie filtrów DPF to nowy dział firmy, który wyrósł z dziesięciu lat pracy z myciem ciśnieniowym.</p>
             <h2>Maszyna i metoda</h2>
-            <p>Filtry czyścimy metodą hydrodynamiczną na maszynie <Ph>model maszyny</Ph>. Przed i po czyszczeniu mierzymy przeciwciśnienie przy stałym przepływie powietrza, a maszyna drukuje raport z wynikami.</p>
+            <p>Filtry czyścimy metodą hydrodynamiczną na maszynie XTON DPF Master Flash Dual AI polskiego producenta XTON z Nowego Sącza. Maszyna płucze wkład w obu kierunkach przepływu, a potem go suszy. Przed i po czyszczeniu mierzy przeciwciśnienie filtra i drukuje raport z wynikami w mbar.</p>
             <p>Dzięki temu wiesz, w jakim stanie filtr do nas trafił i z jakim wynikiem wraca. Jeśli wkład jest pęknięty lub stopiony, mówimy o tym przed czyszczeniem.</p>
             <h2>Czego nie robimy</h2>
             <p>Nie usuwamy i nie wycinamy filtrów DPF. Nie programujemy sterowników tak, żeby działały bez filtra. Zajmujemy się wyłącznie legalnym czyszczeniem, które pozwala przejść przegląd bez problemów.</p>
@@ -639,8 +664,8 @@ export function ONas() {
               <li><I n="pin" />{FIRMA.ulica}, {FIRMA.miasto}</li>
               <li><I n="gauge" />Badanie przed i po, z wydrukiem</li>
               <li><I n="clock" />Czyszczenie w {FIRMA.czasRealizacji}</li>
-              <li><I n="shield" />Gwarancja {FIRMA.gwarancjaMies} miesięcy</li>
-              <li><I n="truck" />Kurier w obie strony w cenie</li>
+              <li><I n="shield" />Gwarancja {FIRMA.gwarancja}</li>
+              <li><I n="truck" />Kurier w obie strony {FIRMA.kurier} zł</li>
             </ul>
             <L to="kontakt" className="btn btn--primary">Kontakt</L>
           </aside>
@@ -737,20 +762,20 @@ export function Wpis({ slug }) {
 export function Kontakt() {
   return (
     <>
-      <PageHero crumbs={[{ label: 'Kontakt' }]} eyebrow="Kontakt" title="Serwis DPF Lubań: kontakt i dojazd" lead={`Zadzwoń, napisz albo przyjedź na ${FIRMA.ulica}. Filtr możesz też wysłać kurierem w cenie usługi.`} art="none" />
+      <PageHero crumbs={[{ label: 'Kontakt' }]} eyebrow="Kontakt" title="Serwis DPF Lubań: kontakt i dojazd" lead={`Zadzwoń, napisz albo przyjedź na ${FIRMA.ulica}. Filtr możesz też wysłać kurierem, ${FIRMA.kurier} zł w obie strony.`} art="none" />
       <section className="section">
         <div className="wrap stack-lg">
           <div className="info-grid">
             <div className="info"><I n="phone" /><span className="k">Telefon</span><a className="v" href={FIRMA.telefonHref}>{FIRMA.telefon}</a></div>
             <div className="info"><I n="mail" /><span className="k">E-mail</span><span className="v">{FIRMA.email || <Ph>e-mail</Ph>}</span></div>
             <div className="info"><I n="pin" /><span className="k">Adres</span><span className="v">{FIRMA.ulica}<br />{FIRMA.kod} {FIRMA.miasto}</span></div>
-            <div className="info"><I n="clock" /><span className="k">Godziny</span><span className="v">{FIRMA.godziny || <Ph>pn–pt, sob</Ph>}</span></div>
+            <div className="info"><I n="clock" /><span className="k">Godziny</span><span className="v">{FIRMA.godziny}, sob–nd zamknięte</span></div>
           </div>
           <div className="area" style={{ alignItems: 'start' }}>
             <div className="stack">
               <GoogleMap />
               <div className="btn-row">
-                <a className="btn btn--ghost btn--sm" href="https://www.google.com/maps/search/?api=1&query=Za+Torem+10b+59-800+Luba%C5%84" target="_blank" rel="noopener"><I n="route" />Wyznacz trasę w Google Maps</a>
+                <a className="btn btn--ghost btn--sm" href="https://www.google.com/maps/search/?api=1&query=Za+Torem+10B+59-800+Luba%C5%84" target="_blank" rel="noopener"><I n="route" />Wyznacz trasę w Google Maps</a>
               </div>
               <div className="stack" style={{ marginTop: 8 }}>
                 <span className="eyebrow">Znajdź nas</span>
@@ -765,10 +790,12 @@ export function Kontakt() {
         <div className="wrap">
           <div className="section-head"><h2>Dane firmy</h2></div>
           <div className="info-grid">
-            <div className="info"><span className="k">Nazwa</span><span className="v"><Ph>pełna nazwa firmy</Ph></span></div>
-            <div className="info"><span className="k">NIP</span><span className="v"><Ph>NIP</Ph></span></div>
-            <div className="info"><span className="k">Konto</span><span className="v"><Ph>numer konta</Ph></span></div>
+            <div className="info"><span className="k">Nazwa</span><span className="v" style={{ fontSize: '1.15rem' }}>{FIRMA.spolka}</span></div>
+            <div className="info"><span className="k">NIP / REGON</span><span className="v" style={{ fontSize: '1.15rem' }}>{FIRMA.nip}<br />{FIRMA.regon}</span></div>
+            <div className="info"><span className="k">KRS</span><span className="v" style={{ fontSize: '1.15rem' }}>{FIRMA.krs}</span></div>
+            <div className="info"><span className="k">Konto</span><span className="v" style={{ fontSize: '1.15rem' }}>{FIRMA.konto}</span></div>
           </div>
+          <p className="muted" style={{ fontSize: '.875rem', marginTop: 16 }}>{FIRMA.rejestr}</p>
         </div>
       </section>
     </>
@@ -781,7 +808,7 @@ export function Miasto({ slug }) {
   const inne = MIASTA.filter((x) => x.slug !== slug);
   return (
     <>
-      <PageHero img="media/wydech.jpg" crumbs={[{ label: 'Obszar działania' }, { label: m.nazwa }]} eyebrow={`Obszar działania · ${m.nazwa}`} title={`Czyszczenie DPF ${m.nazwa}`} lead={`Czyścimy filtry DPF, FAP, katalizatory i SCR dla kierowców i firm ${m.zMiasta}. Przywieź filtr do Lubania albo zamów odbiór kurierem w cenie usługi.`}>
+      <PageHero img="media/wydech.jpg" crumbs={[{ label: 'Obszar działania' }, { label: m.nazwa }]} eyebrow={`Obszar działania · ${m.nazwa}`} title={`Czyszczenie DPF ${m.nazwa}`} lead={`Czyścimy filtry DPF, FAP, katalizatory i SCR dla kierowców i firm ${m.zMiasta}. Przywieź filtr do Lubania albo zamów odbiór kurierem, ${FIRMA.kurier} zł w obie strony.`}>
         <div className="btn-row">
           <L to="zamow-odbior" className="btn btn--primary btn--lg"><I n="truck" />Zamów odbiór {m.zMiasta}</L>
           <a href={FIRMA.telefonHref} className="btn btn--ghost btn--lg"><I n="phone" />{FIRMA.telefon}</a>
@@ -793,7 +820,7 @@ export function Miasto({ slug }) {
             <div className="city-facts">
               <div><span className="k">Odległość</span><span className="v">ok. {m.km} km</span></div>
               <div><span className="k">Dojazd autem</span><span className="v">ok. {m.min} min</span></div>
-              <div><span className="k">Kurier</span><span className="v">w cenie</span></div>
+              <div><span className="k">Kurier</span><span className="v">{FIRMA.kurier} zł w obie strony</span></div>
             </div>
             <div className="prose">
               <h2>Dojazd {m.zMiasta} do warsztatu</h2>
@@ -809,7 +836,8 @@ export function Miasto({ slug }) {
           </div>
           <aside className="aside-card">
             <span className="eyebrow">Cena</span>
-            <div className="price-val">od <Ph>cena</Ph> <small>brutto</small></div>
+            <div className="price-val">od 399 zł <small>brutto</small></div>
+            <p className="price-sub">+ kurier w obie strony {FIRMA.kurier} zł</p>
             <WCenieList items={W_CENIE.slice(0, 4)} />
             <L to="zamow-odbior" className="btn btn--primary"><I n="truck" />Zamów odbiór</L>
             <L to="cennik" className="link-arrow">Pełny cennik<I n="arrow" /></L>
@@ -838,10 +866,10 @@ export function Miasto({ slug }) {
 export function Polityka() {
   return (
     <>
-      <PageHero crumbs={[{ label: 'Polityka prywatności' }]} title="Polityka prywatności" art="none" lead="Szablon do uzupełnienia danymi administratora przed publikacją." />
+      <PageHero crumbs={[{ label: 'Polityka prywatności' }]} title="Polityka prywatności" art="none" lead="Jak przetwarzamy dane osób, które kontaktują się z nami i zlecają usługi." />
       <section className="section"><div className="wrap legal">
         <h2>1. Administrator danych</h2>
-        <p>Administratorem danych osobowych jest <Ph>pełna nazwa firmy, adres, NIP</Ph>, {FIRMA.ulica}, {FIRMA.kod} {FIRMA.miasto}. Kontakt: tel. {FIRMA.telefon}, e-mail <Ph>e-mail</Ph>.</p>
+        <p>Administratorem danych osobowych jest {FIRMA.rejestr} Kontakt: tel. {FIRMA.telefon}, e-mail {FIRMA.email || <Ph>e-mail</Ph>}.</p>
         <h2>2. Cele i podstawy przetwarzania</h2>
         <ul>
           <li>Odpowiedź na zapytanie z formularza i oddzwonienie (art. 6 ust. 1 lit. a i f RODO).</li>
@@ -865,24 +893,24 @@ export function Polityka() {
 export function Regulamin() {
   return (
     <>
-      <PageHero crumbs={[{ label: 'Regulamin' }]} title="Regulamin usług" art="none" lead="Szablon do uzupełnienia przed publikacją." />
+      <PageHero crumbs={[{ label: 'Regulamin' }]} title="Regulamin usług" art="none" lead={`Zasady świadczenia usług przez ${FIRMA.spolkaKrotko} pod marką czystyfiltr.pl.`} />
       <section className="section"><div className="wrap legal">
         <h2>1. Usługodawca</h2>
-        <p><Ph>pełna nazwa firmy, NIP</Ph>, {FIRMA.ulica}, {FIRMA.kod} {FIRMA.miasto}.</p>
+        <p>{FIRMA.rejestr}</p>
         <h2>2. Zakres usług</h2>
         <p>Czyszczenie filtrów DPF/FAP, katalizatorów, układów SCR oraz mycie ciśnieniowe kolektorów i części. Usługodawca nie wykonuje usuwania ani wycinania filtrów DPF.</p>
         <h2>3. Zamówienie i odbiór</h2>
         <ol>
           <li>Zlecenie składa się przez formularz, telefonicznie lub osobiście.</li>
-          <li>Odbiór i zwrot kurierem są wliczone w cenę usługi na terenie Polski.</li>
+          <li>Odbiór i zwrot kurierem na terenie Polski kosztują {FIRMA.kurier} zł brutto za przesyłkę. Transport filtrów z pojazdów ciężarowych i maszyn wyceniamy przed wysyłką.</li>
           <li>Klient pakuje filtr zgodnie z instrukcją na stronie Jak to działa.</li>
         </ol>
         <h2>4. Badanie i czyszczenie</h2>
-        <p>Przed czyszczeniem filtr jest badany. Jeśli wkład jest uszkodzony, usługodawca informuje klienta przed wykonaniem usługi. <Ph>zasady opłat, gdy filtra nie da się wyczyścić</Ph></p>
+        <p>Przed czyszczeniem filtr jest badany. Jeśli wkład jest uszkodzony, usługodawca informuje klienta przed wykonaniem usługi. Jeśli wkład jest uszkodzony i filtra nie da się wyczyścić, klient nie ponosi żadnych opłat, a filtr wraca do niego na koszt usługodawcy.</p>
         <h2>5. Gwarancja</h2>
-        <p>Gwarancja trwa {FIRMA.gwarancjaMies} miesięcy od dnia zwrotu filtra. Wyłączenia: {GWARANCJA.wylaczenia.map((x) => x.toLowerCase()).join('; ')}.</p>
+        <p>Gwarancja trwa 24 miesiące od dnia zwrotu filtra, bez limitu przebiegu. Wyłączenia: {GWARANCJA.wylaczenia.map((x) => x.toLowerCase()).join('; ')}.</p>
         <h2>6. Płatność</h2>
-        <p><Ph>forma i termin płatności</Ph></p>
+        <p>Płatność po wykonaniu usługi: przelewem po otrzymaniu zdjęcia raportu (na konto {FIRMA.konto}), za pobraniem u kuriera albo na miejscu w Lubaniu gotówką, kartą lub BLIK-iem.</p>
       </div></section>
     </>
   );

@@ -70,8 +70,7 @@ export const Ph = ({ children }) => <span className="ph" title="Do uzupełnienia
 export function Logo({ light }) {
   return (
     <L to="" className={'logo' + (light ? ' logo--light' : '')} aria-label="czystyfiltr.pl, strona główna">
-      <img className="logo-znak" src="media/logo-znak.png" alt="" width="626" height="439" />
-      <img className="logo-napis" src="media/logo-napis.png" alt="czystyfiltr.pl" width="845" height="135" />
+      <img className="logo-img" src={light ? 'media/logo-negatyw.svg' : 'media/logo.svg'} alt="czystyfiltr.pl" width="469" height="171" />
     </L>
   );
 }
@@ -187,7 +186,7 @@ export function Topbar() {
           <span className="topbar-item"><I n="clock" />{FIRMA.godziny || <Ph>godziny otwarcia</Ph>}</span>
         </div>
         <div className="topbar-items">
-          <span className="topbar-item"><I n="truck" />Kurier w obie strony w cenie</span>
+          <span className="topbar-item"><I n="truck" />Kurier w obie strony {FIRMA.kurier} zł</span>
           <a className="topbar-item" href={FIRMA.telefonHref}><I n="phone" />{FIRMA.telefon}</a>
         </div>
       </div>
@@ -296,8 +295,9 @@ export function Footer() {
             </address>
           </div>
         </div>
+        <p className="footer-legal">{FIRMA.rejestr}</p>
         <div className="footer-bottom">
-          <span>© 2026 czystyfiltr.pl · <L to="polityka-prywatnosci">Polityka prywatności</L> · <L to="regulamin">Regulamin</L> · <L to="zrodla-zdjec">Źródła zdjęć</L></span>
+          <span>© 2026 {FIRMA.spolkaKrotko} · <L to="polityka-prywatnosci">Polityka prywatności</L> · <L to="regulamin">Regulamin</L> · <L to="zrodla-zdjec">Źródła zdjęć</L></span>
           <span>Realizacja: <a href="https://olekcodetech.pl" target="_blank" rel="noopener">OlekCodeTech</a></span>
         </div>
       </div>
@@ -364,7 +364,7 @@ export function UslugiGrid() {
           <div className="service-img"><img src={u.foto} alt="" loading="lazy" /></div>
           <h3>{u.nazwa}</h3>
           <p>{u.karta}</p>
-          <div className="service-foot"><span>od <Ph>cena</Ph> brutto</span><span className="link-arrow">Szczegóły<I n="arrow" /></span></div>
+          <div className="service-foot"><span>od {u.cenaOd} zł brutto</span><span className="link-arrow">Szczegóły<I n="arrow" /></span></div>
         </L>
       ))}
     </div>
@@ -533,7 +533,7 @@ export function QuickForm({ title = 'Oddzwonimy i wycenimy' }) {
         <label htmlFor="qf-tel">Telefon</label><input id="qf-tel" name="tel" type="tel" inputMode="tel" autoComplete="tel" placeholder="600 100 200" />
         {err.tel && <span className="err">{err.tel}</span>}
       </div>
-      <label className="consent"><input type="checkbox" name="zgoda" id="qf-zgoda" /><span>Zgadzam się na kontakt telefoniczny w sprawie wyceny. Administratorem danych jest czystyfiltr.pl. Szczegóły w <L to="polityka-prywatnosci">polityce prywatności</L>.</span></label>
+      <label className="consent"><input type="checkbox" name="zgoda" id="qf-zgoda" /><span>Zgadzam się na kontakt telefoniczny w sprawie wyceny. Administratorem danych jest {FIRMA.spolkaKrotko}. Szczegóły w <L to="polityka-prywatnosci">polityce prywatności</L>.</span></label>
       {err.zgoda && <span className="err" style={{ color: '#B4441F', fontSize: '.8125rem' }}>{err.zgoda}</span>}
       <button className="btn btn--primary btn--lg" type="submit">Oddzwońcie do mnie<I n="arrow" /></button>
     </form>

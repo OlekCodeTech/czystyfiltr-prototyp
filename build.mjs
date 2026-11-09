@@ -5,10 +5,10 @@ const js = r.outputFiles.find((f) => f.path.endsWith('.js')).text;
 const css = r.outputFiles.find((f) => f.path.endsWith('.css')).text;
 const head = `<title>czystyfiltr.pl</title>
 <meta name="robots" content="noindex, nofollow">
-<link rel="icon" type="image/png" href="media/logo-znak.png">
+<link rel="icon" type="image/svg+xml" href="media/favicon.svg">
 <meta name="theme-color" content="#1F2B30">
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Czyszczenie filtrów DPF/FAP, katalizatorów i SCR w Lubaniu. Kurier w obie strony w cenie, badanie przeciwciśnienia przed i po, gwarancja 12 miesięcy.">
+<meta name="description" content="Czyszczenie filtrów DPF/FAP, katalizatorów i SCR w Lubaniu. Od 399 zł. Odbiór kurierem z całej Polski, badanie przeciwciśnienia przed i po, gwarancja 24 miesiące bez limitu km.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;700&display=swap">
 <style>${css}</style>`;
